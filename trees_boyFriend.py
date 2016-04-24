@@ -159,7 +159,7 @@ def plotTree(myTree, parentPt, nodeTxt):
     plotTree.yOff = plotTree.yOff + 1.0/plotTree.totalD
 
 
-def createPlot(inTree,tree_name):
+def createPlot(inTree):
     fig = plt.figure(1, facecolor='white')
     fig.clf()
     axprops = dict(xticks=[], yticks=[])
@@ -170,19 +170,21 @@ def createPlot(inTree,tree_name):
     plotTree(inTree, (0.5,1.0), '')
     plt.show()
 
-
+def trainTree(dataSet,labels,fileName):
+	storeTree(createTree(dataSet,labels),fileName)
 
 if __name__ == '__main__':
-   tree_name='bogfriendTree.jpg';
    decisionNode = dict(boxstyle="sawtooth", fc="0.8")
    leafNode = dict(boxstyle="round4", fc="0.8")
    arrow_args = dict(arrowstyle="<-")
+
+
    dataSet,labels=createDataSet()
    dataSet2,labels2=createDataSet()
    fileName='boyFriendTree.txt'
-   storeTree(createTree(dataSet,labels),fileName)
+   
+   trainTree(dataSet,labels,fileName);#只需要运行一次即可
    myTree=grabTree(fileName)  
-   print classify(myTree,labels2,['1','0','1'])
-   createPlot(myTree,tree_name)
-
+   print classify(myTree,labels2,['1','0','1'])#计算分类结果
+   createPlot(myTree)
 
